@@ -22,6 +22,7 @@ import { checkForUpdates, performUpdate, formatUpdateNotification, getInstalledV
 import { install as installOmc, isInstalled, getInstallInfo } from '../installer/index.js';
 import { waitCommand, waitStatusCommand, waitDaemonCommand, waitDetectCommand } from './commands/wait.js';
 import { doctorConflictsCommand } from './commands/doctor-conflicts.js';
+import { teamCommand } from './commands/team.js';
 import { teleportCommand, teleportListCommand, teleportRemoveCommand } from './commands/teleport.js';
 import { getRuntimePackageVersion } from '../lib/version.js';
 import { launchCommand } from './launch.js';
@@ -1275,6 +1276,23 @@ program
     else {
         await hudMain();
     }
+});
+/**
+ * Team command - CLI API for team worker lifecycle operations
+ * Mirrors OMX's `omx team api` interface exactly.
+ *
+ * helpOption(false) prevents commander from intercepting --help;
+ * our teamCommand handler provides its own help output.
+ */
+program
+    .command('team')
+    .description('Team CLI API for worker lifecycle operations')
+    .helpOption(false)
+    .allowUnknownOption(true)
+    .allowExcessArguments(true)
+    .argument('[args...]', 'team subcommand arguments')
+    .action(async (args) => {
+    await teamCommand(args);
 });
 // Parse arguments
 program.parse();

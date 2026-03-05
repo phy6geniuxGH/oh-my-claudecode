@@ -447,7 +447,7 @@ async function paneInCopyMode(paneId, execFileAsync) {
     }
 }
 export function shouldAttemptAdaptiveRetry(args) {
-    if (process.env.OMX_TEAM_AUTO_INTERRUPT_RETRY === '0')
+    if (process.env.OMC_TEAM_AUTO_INTERRUPT_RETRY === '0')
         return false;
     if (args.retriesAttempted >= 1)
         return false;
